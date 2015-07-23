@@ -1,0 +1,21 @@
+.errors {
+	color : red;
+}
+
+.errors.has-errors {
+	padding : 10px;
+	border : 1px solid red;
+	background : #eee;
+}
+
+.form-row {
+	margin : 15px 0;
+}
+
+input[type=text] {
+	border : 1px solid black;
+}
+
+input[type=text].error {
+	border-color : red;
+}
