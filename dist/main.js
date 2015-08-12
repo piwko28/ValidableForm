@@ -204,6 +204,36 @@ Validator.prototype.getErrorMessage = function() {
 	return this.errorMessage.format(this.name);
 };
 
+RegexpValidator.prototype = Object.create(Validator.prototype);
+RegexpValidator.prototype.constructor = RegexpValidator;
+
+function RegexpValidator(name, element, regexp) {
+	Validator.call(this, name, element);
+	this.regexp = regexp;
+}
+
+RegexpValidator.prototype.validate = function() {
+	var result = true;
+	var tag = this.element.tagName.toLowerCase();
+	var type = this.element.type.toLowerCase();
+	if(tag === 'input' && type.equals('text', 'password', 'email')) {
+		if(!this.element.value.match(this.regexp)) {
+			result = false;
+		}
+	}
+	return result;
+};
+
+EmailValidator.prototype = Object.create(RegexpValidator.prototype);
+EmailValidator.prototype.constructor = EmailValidator;
+
+function EmailValidator(name, element) {
+	var regexp = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+	RegexpValidator.call(this, name, element, regexp);
+	this.regexp = regexp;
+	this.errorMessage = "{0} is not valid e-mail address.";
+}
+
 RequiredValidator.prototype = Object.create(Validator.prototype);
 RequiredValidator.prototype.constructor = RequiredValidator;
 
