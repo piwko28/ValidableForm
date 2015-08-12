@@ -122,7 +122,13 @@ function ValidableForm(container) {
 }
 
 ValidableForm.prototype.addValidator = function(validator) {
+	var form = this;
 	this.validators.push(validator);
+	validator.element.on('keyup', function() {
+		if(!validator.valid) {
+			form.validate();
+		}
+	});
 };
 
 ValidableForm.prototype.validate = function() {
@@ -156,10 +162,10 @@ ValidableForm.prototype.setErrorContainer = function(container) {
 };
 
 ValidableForm.prototype.watchButtons = function() {
-	var that = this;
+	var form = this;
 	this.container.all('input[type=submit]').on('click', function(event) {
-		that.validate();
-		if(!that.valid) {
+		form.validate();
+		if(!form.valid) {
 			event.preventDefault();
 		}
 	});
