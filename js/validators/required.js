@@ -3,6 +3,7 @@ RequiredValidator.prototype.constructor = RequiredValidator;
 
 function RequiredValidator(name, element) {
 	Validator.call(this, name, element);
+	this.errorMessage = "{0} is required.";
 }
 
 RequiredValidator.prototype.validate = function() {

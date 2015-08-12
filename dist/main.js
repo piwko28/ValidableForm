@@ -114,6 +114,14 @@ String.prototype.equals = function() {
 	return result;
 };
 
+String.prototype.format = function() {
+	var result = this, i;
+	for(i = 0; i < arguments.length; i++) {
+		result = result.replace(new RegExp("\\{" + i + "\\}", "gm"), arguments[i]);
+	}
+	return result;
+};
+
 function ValidableForm(container) {
 	this.container = container;
 	this.errorContainer = undefined;
@@ -175,7 +183,7 @@ function Validator(name, element) {
 	this.name = name;
 	this.element = element;
 	this.valid = true;
-	this.errorMessage = this.name + " is not valid.";
+	this.errorMessage = "{0} is not valid.";
 }
 
 Validator.prototype.test = function() {
@@ -193,7 +201,7 @@ Validator.prototype.validate = function() {
 };
 
 Validator.prototype.getErrorMessage = function() {
-	return this.errorMessage;
+	return this.errorMessage.format(this.name);
 };
 
 RequiredValidator.prototype = Object.create(Validator.prototype);
@@ -201,6 +209,7 @@ RequiredValidator.prototype.constructor = RequiredValidator;
 
 function RequiredValidator(name, element) {
 	Validator.call(this, name, element);
+	this.errorMessage = "{0} is required.";
 }
 
 RequiredValidator.prototype.validate = function() {

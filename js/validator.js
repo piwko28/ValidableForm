@@ -2,7 +2,7 @@ function Validator(name, element) {
 	this.name = name;
 	this.element = element;
 	this.valid = true;
-	this.errorMessage = this.name + " is not valid.";
+	this.errorMessage = "{0} is not valid.";
 }
 
 Validator.prototype.test = function() {
@@ -20,5 +20,5 @@ Validator.prototype.validate = function() {
 };
 
 Validator.prototype.getErrorMessage = function() {
-	return this.errorMessage;
+	return this.errorMessage.format(this.name);
 };

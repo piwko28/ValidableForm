@@ -113,3 +113,11 @@ String.prototype.equals = function() {
 	}
 	return result;
 };
+
+String.prototype.format = function() {
+	var result = this, i;
+	for(i = 0; i < arguments.length; i++) {
+		result = result.replace(new RegExp("\\{" + i + "\\}", "gm"), arguments[i]);
+	}
+	return result;
+};
