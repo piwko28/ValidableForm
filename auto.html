@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Validable Form</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="dist/main.js"></script>
+	</head>
+	<body>
+
+		<!-- POLL -->
+		<div id="form">
+			<div class="errors"></div>
+			<div class="form-row">
+				<label for="surname">Name</label>
+				<input type="text" name="surname" id="surname" data-name="Name" data-validator-required>
+			</div>
+			<div class="form-row">
+				<label for="email">E-mail</label>
+				<input type="text" name="email" id="email" data-name="E-mail" data-validator-email>
+			</div>
+			<div class="form-row">
+				<label for="custom">Type "5"</label>
+				<input type="text" name="custom" id="custom" data-name="5" data-validator-custom="valid5">
+			</div>
+			<input type="submit" value="Send">
+		</div>
+
+		<!-- SCRIPTS ON READY -->
+		<script>
+			function valid5(value) {
+				return value == 5;
+			}
+			var form = document.getElementById('form');
+			new AutoValidator(form, form.querySelector('.errors'));
+		</script>
+
+	</body>
+</html>

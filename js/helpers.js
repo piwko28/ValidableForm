@@ -100,6 +100,13 @@ NodeList.prototype.on = function(name, fn) {
 	}
 };
 
+NodeList.prototype.forEach = function(callback) {
+	var i;
+	for(i = 0; i < this.length; i++) {
+		callback.call(this[i]);
+	}
+};
+
 String.prototype.inArray = function(array) {
 	return array.indexOf(this) >= 0;
 };

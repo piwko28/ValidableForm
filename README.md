@@ -107,3 +107,28 @@ new CustomValidator(name, element, fn);
  - name - name of the field
  - element - DOM element of the field
  - fn - function that validate the value of input
+
+
+## Auto validator
+
+Make validators according to input's data attributes.
+
+
+Usage:
+```js
+new AutoValidator(container, errorContainer);
+```
+
+ - container - form container
+ - errorContainer - container to place error messages
+
+It needs to set dataattributes:
+
+```html
+<input type="text" data-name="Name" data-validator-required>
+<input type="text" data-name="Name" data-validator-regexp="^regular_expression$">
+<input type="text" data-name="Name" data-validator-email>
+<input type="text" data-name="Name" data-validator-custom="FunctionName">
+```
+
+"data-name" attribute is needed by every validator and specify the name using to generate error messages. Some of validators needs to set a value of attribute (see example within auto.html file).
