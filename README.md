@@ -132,3 +132,14 @@ It needs to set dataattributes:
 ```
 
 "data-name" attribute is needed by every validator and specify the name using to generate error messages. Some of validators needs to set a value of attribute (see example within auto.html file).
+
+
+## Plugins
+
+### jQuery
+
+Run autovalidate with jQuery:
+
+```js
+$("#form").validableForm(".errors")
+```

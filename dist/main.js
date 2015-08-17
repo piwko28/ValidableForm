@@ -178,6 +178,17 @@ String.prototype.format = function() {
 	return result;
 };
 
+(function($) {
+
+	$.fn.validableForm = function(errorContainer) {
+
+		$(this).each(function() {
+			new AutoValidator(this, $(this).find(errorContainer)[0]);
+		});
+
+	};
+
+})(jQuery);
 function ValidableForm(container) {
 	this.container = container;
 	this.errorContainer = undefined;
