@@ -10,7 +10,7 @@ RegexpValidator.prototype.validate = function() {
 	var result = true;
 	var tag = this.element.tagName.toLowerCase();
 	var type = this.element.type.toLowerCase();
-	if(tag === 'input' && type.equals('text', 'password', 'email')) {
+	if((tag === 'input' && type.equals('text', 'password', 'email')) || tag === 'textarea') {
 		if(!this.element.value.match(this.regexp)) {
 			result = false;
 		}
