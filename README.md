@@ -134,6 +134,13 @@ It needs to set dataattributes:
 "data-name" attribute is needed by every validator and specify the name using to generate error messages. Some of validators needs to set a value of attribute (see example within auto.html file).
 
 
+Optionally you can add own error message to any validator. Example use:
+
+```html
+<input type="text" data-name="Name" data-validator-required data-validator-required-error="Man, you have to fill in the field called {0} before you go further!">
+```
+
+
 ## Plugins
 
 ### jQuery

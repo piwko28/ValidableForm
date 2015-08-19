@@ -24,27 +24,35 @@ AutoValidator.prototype.makeValidators = function() {
 	var autovalidator = this;
 	/* RequiredValidator */
 	this.container.querySelectorAll("[data-validator-required]").forEach(function() {
-		autovalidator.addValidator(
-			new RequiredValidator(this.dataset.name, this)
-		);
+		var validator = new RequiredValidator(this.dataset.name, this);
+		if(this.dataset.validatorRequiredError) {
+			validator.errorMessage = this.dataset.validatorRequiredError;
+		}
+		autovalidator.addValidator(validator);
 	});
 	/* RegexpValidator */
 	this.container.querySelectorAll("[data-validator-regexp]").forEach(function() {
-		autovalidator.addValidator(
-			new RegexpValidator(this.dataset.name, this, this.dataset.validatorRegexp)
-		);
+		var validator = new RegexpValidator(this.dataset.name, this, this.dataset.validatorRegexp);
+		if(this.dataset.validatorRegexpError) {
+			validator.errorMessage = this.dataset.validatorRegexpError;
+		}
+		autovalidator.addValidator(validator);
 	});
 	/* EmailValidator */
 	this.container.querySelectorAll("[data-validator-email]").forEach(function() {
-		autovalidator.addValidator(
-			new EmailValidator(this.dataset.name, this)
-		);
+		var validator = new EmailValidator(this.dataset.name, this);
+		if(this.dataset.validatorEmailError) {
+			validator.errorMessage = this.dataset.validatorEmailError;
+		}
+		autovalidator.addValidator(validator);
 	});
 	/* CustomValidator */
 	this.container.querySelectorAll("[data-validator-custom]").forEach(function() {
-		autovalidator.addValidator(
-			new CustomValidator(this.dataset.name, this, window[this.dataset.validatorCustom])
-		);
+		var validator = new CustomValidator(this.dataset.name, this, window[this.dataset.validatorCustom]);
+		if(this.dataset.validatorCustomError) {
+			validator.errorMessage = this.dataset.validatorCustomError;
+		}
+		autovalidator.addValidator(validator);
 	});
 };
 /* HELPERS */
