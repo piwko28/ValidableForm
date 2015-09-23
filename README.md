@@ -31,7 +31,7 @@ All we have to do now is adding validators:
 
 ```js
 var required = new RequiredValidator('Name', surname);
-var email = new EmailValidator('E-mail', email)'
+var email = new EmailValidator('E-mail', email);
 var custom = new CustomValidator('5', custom, function(value) {
 	return value == 5;
 });
