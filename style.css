@@ -19,3 +19,7 @@ input[type=text] {
 input[type=text].error {
 	border-color : red;
 }
+
+input[type=checkbox].error + label {
+	color : red;
+}

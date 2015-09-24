@@ -14,6 +14,8 @@ RequiredValidator.prototype.validate = function() {
 		if(this.element.value === "") {
 			result = false;
 		}
+	} else if(tag === 'input' && type === 'checkbox') {
+		result = this.element.checked;
 	}
 	return result;
 };
