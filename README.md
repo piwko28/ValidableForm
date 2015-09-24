@@ -33,6 +33,7 @@ Mathod watchButtons can have callback function, when error will occured:
 form.watchButtons(function() {
 	alert('Oh no!');
 });
+```
 
 
 All we have to do now is adding validators:
