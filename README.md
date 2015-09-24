@@ -116,11 +116,12 @@ Make validators according to input's data attributes.
 
 Usage:
 ```js
-new AutoValidator(container, errorContainer);
+new AutoValidator(container, errorContainer, defaultErrors);
 ```
 
  - container - form container
  - errorContainer - container to place error messages
+ - defaultErrors - (optional) object which override default error messages for each validators; define it by using one or more of the properties: required, email, regexp, custom; default value is {}, example value: { required : "Fill in {0} field!", regexp : "Something is wrong with {0}!" }
 
 It needs to set dataattributes:
 
@@ -148,5 +149,7 @@ Optionally you can add own error message to any validator. Example use:
 Run autovalidate with jQuery:
 
 ```js
-$("#form").validableForm(".errors")
+$("#form").validableForm(".errors", {
+	required : "You have to fill in {0}!"
+})
 ```
