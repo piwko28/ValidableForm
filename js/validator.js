@@ -37,7 +37,7 @@ Validator.prototype.getValue = function() {
 	var i;
 	if(tag === 'input' && type === 'checkbox') {
 		value = this.element.checked;
-	} else if((tag === 'input' && type.equals('text', 'password', 'email')) || tag === 'textarea') {
+	} else if((tag === 'input' && type.equals('text', 'password', 'email')) || tag === 'textarea' || tag === 'select') {
 		value = this.element.value;
 	} else if(tag === 'input' && type === 'radio') {
 		this.group = document.getElementsByName(this.element.name);
