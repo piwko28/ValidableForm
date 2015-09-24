@@ -41,7 +41,9 @@
 				return value == 5;
 			}
 			var form = document.getElementById('form');
-			new AutoValidator(form, form.querySelector('.errors'));
+			new AutoValidator(form, form.querySelector('.errors'), {
+				required : "Fill in {0}!"
+			});
 		</script>
 
 	</body>

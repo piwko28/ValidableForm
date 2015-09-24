@@ -27,6 +27,14 @@ form.setErrorContainer(document.getElementById("errors"));
 form.watchButtons();
 ```
 
+Mathod watchButtons can have callback function, when error will occured:
+
+```js
+form.watchButtons(function() {
+	alert('Oh no!');
+});
+
+
 All we have to do now is adding validators:
 
 ```js
@@ -116,12 +124,13 @@ Make validators according to input's data attributes.
 
 Usage:
 ```js
-new AutoValidator(container, errorContainer, defaultErrors);
+new AutoValidator(container, errorContainer, defaultErrors, onError);
 ```
 
  - container - form container
  - errorContainer - container to place error messages
  - defaultErrors - (optional) object which override default error messages for each validators; define it by using one or more of the properties: required, email, regexp, custom; default value is {}, example value: { required : "Fill in {0} field!", regexp : "Something is wrong with {0}!" }
+ - onError - callback function when error will occured (see: watchButtons)
 
 It needs to set dataattributes:
 
@@ -151,5 +160,9 @@ Run autovalidate with jQuery:
 ```js
 $("#form").validableForm(".errors", {
 	required : "You have to fill in {0}!"
-})
+}, function() { // callback on error function
+	$('html, body').animate({
+		scrollTop : $("#form .errors").offset().top
+	}, 1000);
+});
 ```

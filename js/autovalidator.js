@@ -1,9 +1,10 @@
-function AutoValidator(container, errorContainer, defaultErrors) {
+function AutoValidator(container, errorContainer, defaultErrors, onError) {
 	this.container = container;
 	this.errorContainer = errorContainer;
 	this.validators = [];
 	this.form = undefined;
 	this.errors = defaultErrors || {};
+	this.onError = onError;
 	this.init();
 	this.makeValidators();
 }
@@ -18,7 +19,7 @@ AutoValidator.prototype.init = function() {
 	if(this.errorContainer) {
 		this.form.setErrorContainer(this.errorContainer);
 	}
-	this.form.watchButtons();
+	this.form.watchButtons(this.onError);
 };
 
 AutoValidator.prototype.makeValidators = function() {
@@ -26,8 +27,8 @@ AutoValidator.prototype.makeValidators = function() {
 	/* RequiredValidator */
 	this.container.querySelectorAll("[data-validator-required]").forEach(function() {
 		var validator = new RequiredValidator(this.dataset.name, this);
-		if(this.errors.hasOwnProperty('required')) {
-			validator.errorMessage = this.errors.required;
+		if(autovalidator.errors.hasOwnProperty('required')) {
+			validator.errorMessage = autovalidator.errors.required;
 		}
 		if(this.dataset.validatorRequiredError) {
 			validator.errorMessage = this.dataset.validatorRequiredError;
@@ -37,8 +38,8 @@ AutoValidator.prototype.makeValidators = function() {
 	/* RegexpValidator */
 	this.container.querySelectorAll("[data-validator-regexp]").forEach(function() {
 		var validator = new RegexpValidator(this.dataset.name, this, this.dataset.validatorRegexp);
-		if(this.errors.hasOwnProperty('regexp')) {
-			validator.errorMessage = this.errors.regexp;
+		if(autovalidator.errors.hasOwnProperty('regexp')) {
+			validator.errorMessage = autovalidator.errors.regexp;
 		}
 		if(this.dataset.validatorRegexpError) {
 			validator.errorMessage = this.dataset.validatorRegexpError;
@@ -48,8 +49,8 @@ AutoValidator.prototype.makeValidators = function() {
 	/* EmailValidator */
 	this.container.querySelectorAll("[data-validator-email]").forEach(function() {
 		var validator = new EmailValidator(this.dataset.name, this);
-		if(this.errors.hasOwnProperty('email')) {
-			validator.errorMessage = this.errors.email;
+		if(autovalidator.errors.hasOwnProperty('email')) {
+			validator.errorMessage = autovalidator.errors.email;
 		}
 		if(this.dataset.validatorEmailError) {
 			validator.errorMessage = this.dataset.validatorEmailError;
@@ -59,8 +60,8 @@ AutoValidator.prototype.makeValidators = function() {
 	/* CustomValidator */
 	this.container.querySelectorAll("[data-validator-custom]").forEach(function() {
 		var validator = new CustomValidator(this.dataset.name, this, window[this.dataset.validatorCustom]);
-		if(this.errors.hasOwnProperty('custom')) {
-			validator.errorMessage = this.errors.custom;
+		if(autovalidator.errors.hasOwnProperty('custom')) {
+			validator.errorMessage = autovalidator.errors.custom;
 		}
 		if(this.dataset.validatorCustomError) {
 			validator.errorMessage = this.dataset.validatorCustomError;

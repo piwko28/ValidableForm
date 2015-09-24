@@ -47,11 +47,14 @@ ValidableForm.prototype.setErrorContainer = function(container) {
 	this.errorContainer = container;
 };
 
-ValidableForm.prototype.watchButtons = function() {
+ValidableForm.prototype.watchButtons = function(callback) {
 	var form = this;
 	this.container.all('input[type=submit]').on('click', function(event) {
 		form.validate();
 		if(!form.valid) {
+			if(typeof callback === 'function') {
+				callback.apply(this);
+			}
 			event.preventDefault();
 		}
 	});
