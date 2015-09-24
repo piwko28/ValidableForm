@@ -7,13 +7,5 @@ function CustomValidator(name, element, fn) {
 }
 
 CustomValidator.prototype.validate = function() {
-	var tag = this.element.tagName.toLowerCase();
-	var type = this.element.type.toLowerCase();
-	var value;
-	if(tag === 'input' && type === 'checkbox') {
-		value = this.element.checked;
-	} else {
-		value = this.element.value;
-	}
-	return this.fn(value);
+	return this.fn(this.getValue());
 };

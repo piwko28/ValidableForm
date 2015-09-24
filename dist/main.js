@@ -207,11 +207,13 @@ function ValidableForm(container) {
 ValidableForm.prototype.addValidator = function(validator) {
 	var form = this;
 	this.validators.push(validator);
-	validator.element.on('keyup', function() {
+	validator.element.on('keyup', checkValid);
+	validator.element.on('change', checkValid);
+	function checkValid() {
 		if(!validator.valid) {
 			form.validate();
 		}
-	});
+	}
 };
 
 ValidableForm.prototype.validate = function() {
@@ -279,6 +281,18 @@ Validator.prototype.getErrorMessage = function() {
 	return this.errorMessage.format(this.name);
 };
 
+Validator.prototype.getValue = function() {
+	var tag = this.element.tagName.toLowerCase();
+	var type = this.element.type.toLowerCase();
+	var value;
+	if(tag === 'input' && type === 'checkbox') {
+		value = this.element.checked;
+	} else if((tag === 'input' && type.equals('text', 'password', 'email')) || tag === 'textarea') {
+		value = this.element.value;
+	}
+	return value;
+};
+
 CustomValidator.prototype = Object.create(Validator.prototype);
 CustomValidator.prototype.constructor = CustomValidator;
 
@@ -288,15 +302,7 @@ function CustomValidator(name, element, fn) {
 }
 
 CustomValidator.prototype.validate = function() {
-	var tag = this.element.tagName.toLowerCase();
-	var type = this.element.type.toLowerCase();
-	var value;
-	if(tag === 'input' && type === 'checkbox') {
-		value = this.element.checked;
-	} else {
-		value = this.element.value;
-	}
-	return this.fn(value);
+	return this.fn(this.getValue());
 };
 
 RegexpValidator.prototype = Object.create(Validator.prototype);
@@ -338,15 +344,10 @@ function RequiredValidator(name, element) {
 }
 
 RequiredValidator.prototype.validate = function() {
-	var result = true;
+	var value = this.getValue();
 	var tag = this.element.tagName.toLowerCase();
 	var type = this.element.type.toLowerCase();
-	if((tag === 'input' && type.equals('text', 'password', 'email')) || tag === 'textarea') {
-		if(this.element.value === "") {
-			result = false;
-		}
-	} else if(tag === 'input' && type === 'checkbox') {
-		result = this.element.checked;
-	}
+	var result = (typeof value === 'string' && value !== "") ||
+		(typeof value === 'boolean' && value);
 	return result;
 };

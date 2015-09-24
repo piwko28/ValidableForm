@@ -7,15 +7,10 @@ function RequiredValidator(name, element) {
 }
 
 RequiredValidator.prototype.validate = function() {
-	var result = true;
+	var value = this.getValue();
 	var tag = this.element.tagName.toLowerCase();
 	var type = this.element.type.toLowerCase();
-	if((tag === 'input' && type.equals('text', 'password', 'email')) || tag === 'textarea') {
-		if(this.element.value === "") {
-			result = false;
-		}
-	} else if(tag === 'input' && type === 'checkbox') {
-		result = this.element.checked;
-	}
+	var result = (typeof value === 'string' && value !== "") ||
+		(typeof value === 'boolean' && value);
 	return result;
 };

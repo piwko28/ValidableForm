@@ -8,11 +8,13 @@ function ValidableForm(container) {
 ValidableForm.prototype.addValidator = function(validator) {
 	var form = this;
 	this.validators.push(validator);
-	validator.element.on('keyup', function() {
+	validator.element.on('keyup', checkValid);
+	validator.element.on('change', checkValid);
+	function checkValid() {
 		if(!validator.valid) {
 			form.validate();
 		}
-	});
+	}
 };
 
 ValidableForm.prototype.validate = function() {
