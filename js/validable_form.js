@@ -10,6 +10,11 @@ ValidableForm.prototype.addValidator = function(validator) {
 	this.validators.push(validator);
 	validator.element.on('keyup', checkValid);
 	validator.element.on('change', checkValid);
+	validator.group.forEach(function() {
+		if(this !== validator.element) {
+			this.on('change', checkValid);
+		}
+	});
 	function checkValid() {
 		if(!validator.valid) {
 			form.validate();

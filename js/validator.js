@@ -3,7 +3,7 @@ function Validator(name, element) {
 	this.element = element;
 	this.valid = true;
 	this.errorMessage = "{0} is not valid.";
-	this.group = [];
+	this.group = document.getElementsByName(this.element.name);
 }
 
 Validator.prototype.test = function() {

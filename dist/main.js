@@ -223,6 +223,11 @@ ValidableForm.prototype.addValidator = function(validator) {
 	this.validators.push(validator);
 	validator.element.on('keyup', checkValid);
 	validator.element.on('change', checkValid);
+	validator.group.forEach(function() {
+		if(this !== validator.element) {
+			this.on('change', checkValid);
+		}
+	});
 	function checkValid() {
 		if(!validator.valid) {
 			form.validate();
@@ -278,7 +283,7 @@ function Validator(name, element) {
 	this.element = element;
 	this.valid = true;
 	this.errorMessage = "{0} is not valid.";
-	this.group = [];
+	this.group = document.getElementsByName(this.element.name);
 }
 
 Validator.prototype.test = function() {
