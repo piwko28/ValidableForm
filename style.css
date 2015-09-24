@@ -20,6 +20,7 @@ input[type=text].error {
 	border-color : red;
 }
 
-input[type=checkbox].error + label {
+input[type=checkbox].error + label,
+input[type=radio].error + label {
 	color : red;
 }
