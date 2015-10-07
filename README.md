@@ -57,6 +57,15 @@ required.errorMessage = "Man, you have to fill in the field called {0} before yo
 ```
 
 
+You can also handle the validate event on element, ex.:
+
+```js
+surname.addEventListener('validate', function() {
+	this.parentNode.addClass('error');
+}, true);
+```
+
+
 ## Validators
 
 

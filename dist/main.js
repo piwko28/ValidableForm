@@ -286,17 +286,39 @@ function Validator(name, element) {
 	this.group = document.getElementsByName(this.element.name);
 }
 
+Validator.errorEvent = undefined;
+if(document.createEvent) {
+	Validator.errorEvent = document.createEvent('HTMLEvents');
+	Validator.errorEvent.initEvent('validate', true, true);
+} else {
+	Validator.errorEvent = document.createEventObject();
+	Validator.errorEvent.eventType = 'validate';
+}
+Validator.errorEvent.eventName = 'validate';
+
+Validator.fireErrorEvent = function(element) {
+	if(document.createEvent) {
+		element.dispatchEvent(Validator.errorEvent);
+	} else {
+		element.fireEvent('validate', Validator.errorEvent);
+	}
+};
+
 Validator.prototype.test = function() {
 	this.valid = this.validate();
 	if(!this.valid) {
 		this.element.addClass('error');
+		Validator.fireErrorEvent(this.element);
 		this.group.forEach(function() {
 			this.addClass('error');
+			Validator.fireErrorEvent(this);
 		});
 	} else {
 		this.element.removeClass('error');
+		Validator.fireErrorEvent(this.element);
 		this.group.forEach(function() {
 			this.removeClass('error');
+			Validator.fireErrorEvent(this);
 		});
 	}
 	return this.valid;

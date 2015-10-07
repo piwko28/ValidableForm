@@ -18,3 +18,7 @@ if(formContainer !== null) {
 	form.setErrorContainer(formContainer.one(".errors"));
 	form.watchButtons();
 }
+
+surname.addEventListener("validate", function() {
+	this.parentNode.addClass("error");
+}, true);
